@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home_ui/widgets/home_card.dart';
+import 'package:smart_home_ui/widgets/location_menu.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -6,6 +8,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+List<String> menuItems = [
+    'Living Room',
+    'Bedroom',
+    'Kitchen',
+    'Bathroom',
+  ];
+ int selectedIndex=0;
+ void onItemTapped(int index){
+  setState(() {
+    selectedIndex=index;
+  });
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,10 +88,53 @@ class _HomeScreenState extends State<HomeScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-            )
+            ),
           ],
-        )
-       ],)),
+        ),
+         const SizedBox(height: 35,),
+            LocationMenu(
+              menuItems: menuItems,
+               selectedIndex: selectedIndex,
+                onItemTapped: onItemTapped
+                ),
+                const SizedBox(height: 35,),
+                Text("4 Active Devices",style: TextStyle(
+                  color:Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700
+                )
+                ,),
+                const SizedBox(height: 35,),
+                Wrap(
+                  children: [
+                    HomeCard(
+                      title: 'Smart Lamp',
+                       imagePath: 'assets/icons/idea.png',
+                        switchColor: Colors.red,
+                         location: menuItems[selectedIndex]
+                         ),
+                          HomeCard(
+                      title: 'Smart Ac',
+                       imagePath: 'assets/icons/air-conditioner.png',
+                        switchColor: Colors.green,
+                         location: menuItems[selectedIndex]
+                         ),
+                          HomeCard(
+                      title: 'Smart Fan',
+                       imagePath: 'assets/icons/fan.png',
+                        switchColor: Colors.yellow,
+                         location: menuItems[selectedIndex]
+                         ),
+                          HomeCard(
+                      title: 'Smart Tv',
+                       imagePath: 'assets/icons/smart-tv.png',
+                        switchColor: Colors.purple,
+                         location: menuItems[selectedIndex]
+                         ),
+                  ],
+                )
+       ],)
+       ),
       ),
     );
   }
